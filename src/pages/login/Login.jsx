@@ -1,5 +1,6 @@
 
 import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './Login.module.css'
 import api from '../../utils/api'
 
@@ -12,6 +13,7 @@ const Login = () => {
     const [errors, setErrors] = useState([])
 
     const auth = useContext(authContext)
+    const navigate = useNavigate()
 
 
 
@@ -27,6 +29,7 @@ const Login = () => {
        try {
 
         await auth.authenticate(student)
+        navigate('/admin')
         
        } catch (error) {
         console.log(error)
