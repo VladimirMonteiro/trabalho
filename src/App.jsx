@@ -1,5 +1,6 @@
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { AuthProvider } from './context/authProvider/AuthContext'
 
 
 
@@ -20,21 +21,16 @@ function App() {
   return (
   
     <div className="App">
-      <Router>
-        <Navbar/>
-          <Routes>
-
-        <Route path='/' element= {<Home/>}/>
-        <Route path='/login' element= {<Login/>}/>
-
-
-          </Routes>
-
-
-
-      </Router>
-
-
+      <AuthProvider>
+        
+        <Router>
+          <Navbar/>
+            <Routes>
+          <Route path='/' element= {<Home/>}/>
+          <Route path='/login' element= {<Login/>}/>
+            </Routes>
+        </Router>
+      </AuthProvider>
 
 
 

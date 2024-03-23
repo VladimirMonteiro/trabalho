@@ -1,7 +1,9 @@
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styles from './Login.module.css'
 import api from '../../utils/api'
+
+import { authContext } from '../../context/authProvider/AuthContext'
 
 const Login = () => {
 
@@ -9,23 +11,27 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
 
+    const auth = useContext(authContext)
+
 
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+        console.log(auth.token)
 
         const student = {
             email,
             password
         }
 
-       const data = await api.post('/student/login', student).then((response) => {
-        console.log(response.data)
-        return response.data
-       }).catch((error) => {
-        console.log(error.response.data.error)
-        setErrors(error.response.data)
-       })
+       try {
+
+        await auth.authenticate(student)
+        
+       } catch (error) {
+        console.log(error)
+        
+       }
 
     }
 
