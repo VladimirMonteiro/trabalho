@@ -7,10 +7,12 @@ import { AuthProvider } from './context/authProvider/AuthContext'
 //Pages
 import Home from './pages/home/Home'
 import Login from './pages/login/Login'
+import Admin from './pages/admin/Admin'
 
 
 //Components
 import Navbar from './components/navbar/Navbar'
+import Protected from './components/protected/Protected'
 
 
 
@@ -28,6 +30,7 @@ function App() {
             <Routes>
           <Route path='/' element= {<Home/>}/>
           <Route path='/login' element= {<Login/>}/>
+          <Route path='/admin' element = {<Protected><Admin/></Protected>}/>
             </Routes>
         </Router>
       </AuthProvider>
