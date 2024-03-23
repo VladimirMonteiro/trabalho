@@ -50,6 +50,11 @@
     color: #26348C;
 }
 
+.error {
+    color: red;
+    margin-top: 5px;
+}
+
 
 
 .btnPrimary {

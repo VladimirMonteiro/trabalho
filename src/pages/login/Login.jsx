@@ -2,7 +2,7 @@
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './Login.module.css'
-import api from '../../utils/api'
+
 
 import { authContext } from '../../context/authProvider/AuthContext'
 
@@ -19,24 +19,32 @@ const Login = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log(auth.token)
+
 
         const student = {
             email,
             password
         }
 
-       try {
 
-        await auth.authenticate(student)
+       const data = await auth.authenticate(student)
+       
+
+       if(data && !data.token){
+        setErrors(data.error)
+       }
+
+       else{
         navigate('/admin')
-        
-       } catch (error) {
-        console.log(error)
+       }
+       
+      
+       
+
         
        }
 
-    }
+    
 
     return(
 
@@ -49,11 +57,13 @@ const Login = () => {
                     <div className={styles.formControl}>
                         <label htmlFor="user">Usuário: </label>
                         <input type="text" name="user" id="user" onChange={(e) => setEmail(e.target.value)} value={email || ''}/>
+                        {errors && errors.includes("e-mail") && <p className={styles.error}>{errors}</p> }
                     </div>
 
                     <div className={styles.formControl}>
                         <label htmlFor="password">Senha: </label>
                         <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} value={password || ''}/>
+                        {errors && errors.includes("senha") && <p className={styles.error}>{errors}</p> }
                     </div>
 
                     <input className={styles.btnPrimary} type="submit" value="Entrar" />

@@ -2,21 +2,21 @@ import api from "../../utils/api";
 
 
 
-export function setStudentLocalStorage(student){
+export function setStudentLocalStorage(student) {
     localStorage.setItem("u", JSON.stringify(student))
 }
 
 
-export function getStudentLocalStorage(){
+export function getStudentLocalStorage() {
     const json = localStorage.getItem("u")
 
-    if(!json){
+    if (!json) {
         return null
     }
 
     const student = JSON.parse(json)
 
-    if(student && student.token){
+    if (student && student.token) {
         api.defaults.headers.common["Authorization"] = student.token
     }
 
@@ -25,16 +25,15 @@ export function getStudentLocalStorage(){
 }
 
 
-export async function loginRequest ({email, password}){
-    
-    try {
-        
-        const request = await api.post("/student/login", {email, password})
-        console.log(request.data)
+export async function loginRequest({ email, password }) {
 
+    try {
+
+        const request = await api.post("/student/login", { email, password })
         return request.data
+
     } catch (error) {
-        return null
-        
+        return error.response.data
+
     }
 }
