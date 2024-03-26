@@ -1,0 +1,76 @@
+.slogan {
+    font-family: 'Gotham', sans-serif;
+    font-size: 20px;
+    margin-top: 1px;
+    height: auto;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+.containerHome {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 65px);
+    flex-direction: column;
+    background-image: url('https://thumbs.dreamstime.com/b/group-professionals-working-together-office-my-team-pretty-female-person-holding-blue-folder-keeping-smile-her-face-102014217.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #26348C;
+}
+
+.faculdade-name {
+    font-family: 'Gotham', sans-serif;
+    color: #26348C;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.presentation-text {
+    font-family: "Gotham", sans-serif;
+    font-size: 15px;
+    margin-top: 20px;
+    height: auto;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.buttons-container {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.btn {
+    margin-left: 10px;
+    background-color: #26348C;
+    color: white;
+}
+
+.image-container {
+    margin-top: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-height: 300px;
+}
+
+.image-description-container {
+    padding: 10px;
+}
+
+.image-description {
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    height: auto;
+    font-weight: bold;
+    color: white
+}

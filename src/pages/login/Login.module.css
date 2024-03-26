@@ -16,8 +16,8 @@
 
 
 .formContainer {
-    width: 400px;
-    height: 300px;
+    width: 450px;
+    height: 350px;
     background-color: white;
     border-radius: 6px;
     padding: 30px;
@@ -36,12 +36,12 @@
 .formControl {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 
 }
 
 .formControl label {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .formControl input {
@@ -66,6 +66,7 @@
     cursor: pointer;
     margin-bottom: 10px;
     border: none;
+    margin-top: 10px;
 }
 
 .btnPrimary:hover {

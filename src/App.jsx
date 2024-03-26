@@ -13,7 +13,7 @@ import Admin from './pages/admin/Admin'
 //Components
 import Navbar from './components/navbar/Navbar'
 import Protected from './components/protected/Protected'
-
+import Footer from './components/footer/Footer'
 
 
 
@@ -32,6 +32,7 @@ function App() {
           <Route path='/login' element= {<Login/>}/>
           <Route path='/admin' element = {<Protected><Admin/></Protected>}/>
             </Routes>
+            <Footer/>
         </Router>
       </AuthProvider>
 
