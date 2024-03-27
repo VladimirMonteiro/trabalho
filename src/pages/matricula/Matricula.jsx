@@ -48,12 +48,12 @@ function Matricula() {
         <div className='form-group'>
           <label htmlFor='nomeAluno' id='label'>Nome:</label>
           <Input className='form-control' id='nomeAluno'name='name' type='text' placeholder='Digite seu nome:' handleOnChange={handleChange}/>
-          {errors && errors.includes('nome') && <p className="errorsMatricula">{errors}</p>}
+          {errors && errors.includes('O nome é obrigatório.') && <p className="errorsMatricula">{errors}</p>}
         </div>
         <div className='form-group'>
           <label htmlFor='email' id='label'>Email:</label>
           <Input className='form-control' id='email' name='email' type='email' placeholder='Digite seu email:' handleOnChange={handleChange}/>
-          {errors && errors.includes('email') &&  <p className="errorsMatricula">{errors}</p>}
+          {errors && errors.includes('O email é obrigatório.') &&  <p className="errorsMatricula">{errors}</p>}
         </div>
         <div className='form-group'>
           <label htmlFor='senha' id='label'>Senha:</label>
@@ -63,7 +63,8 @@ function Matricula() {
         <div className='form-group'>
           <label htmlFor='confsenha' id='label'>Confirme sua senha:</label>
           <Input className='form-control' id='confsenha' type='password' name="confirmPassword" placeholder='Confirme sua senha:' handleOnChange={handleChange}/>
-          {errors && errors.includes('confirmação de senha') &&  <p className="errorsMatricula">{errors}</p>}
+          {errors && errors.includes('A confirmação de senha é obrigatório.') &&  <p className="errorsMatricula">{errors}</p>}
+          {errors && errors.includes('As senhas nâo conferem.') &&  <p className="errorsMatricula">{errors}</p>}
         </div>
         <div className='form-group'>
           <label htmlFor='course' id='label'>Curso:</label>
