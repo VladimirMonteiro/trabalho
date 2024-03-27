@@ -2,8 +2,10 @@ import axios from 'axios'
 import { getStudentLocalStorage } from '../context/authProvider/utils'
 
 const api = axios.create({
-    baseURL: `${import.meta.env.VITE_API_URL}`
+    baseURL: `https://matricula-zvs1.onrender.com`
 })
+
+//${import.meta.env.VITE_API_URL}
 
 
 api.interceptors.request.use(
