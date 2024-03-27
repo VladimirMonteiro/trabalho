@@ -1,0 +1,16 @@
+{
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/index.html" }
+    ],
+    "routes": [
+        {
+          "src": "/student/*",
+          "methods": ["GET", "POST", "PUT", "DELETE"],
+          "allow": ["GET", "POST", "PUT", "DELETE"],
+          "headers": ["Authorization", "Content-Type"],
+          "cors": {
+            "origin": "*"
+          }
+        }
+      ]
+  }
