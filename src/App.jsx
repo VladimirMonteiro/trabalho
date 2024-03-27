@@ -8,6 +8,7 @@ import { AuthProvider } from './context/authProvider/AuthContext'
 import Home from './pages/home/Home'
 import Login from './pages/login/Login'
 import Admin from './pages/admin/Admin'
+import Matricula from './pages/matricula/Matricula'
 
 
 //Components
@@ -31,6 +32,7 @@ function App() {
           <Route path='/' element= {<Home/>}/>
           <Route path='/login' element= {<Login/>}/>
           <Route path='/admin' element = {<Protected><Admin/></Protected>}/>
+          <Route path='/matricula' element = {<Matricula/>}/>
             </Routes>
             <Footer/>
         </Router>

@@ -35,6 +35,8 @@ const Login = () => {
        }
 
        else{
+        setEmail('')
+        setPassword('')
         navigate('/admin')
        }
        

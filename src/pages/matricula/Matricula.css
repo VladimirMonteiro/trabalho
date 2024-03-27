@@ -1,0 +1,66 @@
+
+.Matricula{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 65px);
+    gap: 20px;
+    background-image: url('../../assets/bkgmatricula.jpg');
+    background-size: cover;
+    color: white;
+    
+}
+.Matricula h2{
+    text-shadow: #000000 1px 1px 1px;
+    color: #ffffff;
+}
+#matriculaForm{
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 6px;
+}
+.form-group{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #26348C;
+}
+
+.form-group input{
+    margin-top: 5px;
+    width: 100%;
+    height: 26px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid;
+}
+.form-group select{
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 6px;
+}
+#label{
+    margin-right: 10px;
+    font-family:'Arial';
+}
+.form-group input[type= "submit"]{
+    background-color: #26348C;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    font-size: large;
+    font-weight: bold;
+}
+.form-group input[type= "submit"]:hover{
+    background-color: #404c9f;
+    color: white;
+}
+
+.errorsMatricula{
+    color: red;
+}
