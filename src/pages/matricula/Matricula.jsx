@@ -4,6 +4,7 @@ import './Matricula.css'
 
 import { useState } from "react";
 import {useNavigate} from 'react-router-dom'
+import Loading from '../../components/loading/Loading'
 import api from "../../utils/api";
 
 function Matricula() {
@@ -11,6 +12,7 @@ function Matricula() {
 
   const [newStudent, setNewStudent] = useState({})
   const [errors, setErrors] = useState(null)
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
 
@@ -24,13 +26,18 @@ function Matricula() {
   const handleSubmit = async(e) => {
     e.preventDefault()
 
+    setLoading(true)
 
     const data = await api.post('/student/register', newStudent).then((response) => {
 
+      setLoading(false)
       navigate('/login')
       setNewStudent({})
       
-    }).catch((error) => setErrors(error.response.data.error))
+    }).catch((error) => {
+      setErrors(error.response.data.error)
+      setLoading(false)
+    })
 
 
 
@@ -53,7 +60,7 @@ function Matricula() {
         <div className='form-group'>
           <label htmlFor='email' id='label'>Email:</label>
           <Input className='form-control' id='email' name='email' type='email' placeholder='Digite seu email:' handleOnChange={handleChange}/>
-          {errors && errors.includes('O email é obrigatório.') &&  <p className="errorsMatricula">{errors}</p>}
+          {errors && errors.includes('O e-mail é obrigatório.') &&  <p className="errorsMatricula">{errors}</p>}
         </div>
         <div className='form-group'>
           <label htmlFor='senha' id='label'>Senha:</label>
@@ -77,7 +84,8 @@ function Matricula() {
           {errors && errors.includes('Aluno ja cadastrado.') &&  <p className="errorsMatricula">{errors}</p>}
         </div>
         <div className='form-group'>
-          <Button type='submit' text="Matricular-se"/>
+          {!loading && <Button type='submit' text="Matricular-se"/>}
+          {loading && <Loading/>}
         </div>
       </form>
     </div>

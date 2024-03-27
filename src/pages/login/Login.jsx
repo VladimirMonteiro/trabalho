@@ -21,7 +21,7 @@ const Login = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-
+        setLoading(true)
 
         const student = {
             email,
@@ -32,9 +32,10 @@ const Login = () => {
        const data = await auth.authenticate(student)
 
        
-        setLoading(true)
+       
        if(data && !data.token){
         setErrors(data.error)
+        setLoading(false)
        }
     
 
@@ -56,6 +57,7 @@ const Login = () => {
     return(
 
         <section className={styles.container}>
+          
             
             <h1>Login - Sistema de matriculas</h1>
             <div className={styles.formContainer}>
@@ -72,8 +74,10 @@ const Login = () => {
                         <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} value={password || ''}/>
                         {errors && errors.includes("senha") && <p className={styles.error}>{errors}</p> }
                     </div>
-
-                    <input className={styles.btnPrimary} type="submit" value={<Loading/>} />
+                    {!loading && <input className={styles.btnPrimary} type="submit" value= 'Entrar' /> }
+                    {loading && <Loading/> }
+                    
+                   
                     <p>Esqueceu a senha? <a href="#">Clique aqui!</a></p>
                 </form>
             </div>

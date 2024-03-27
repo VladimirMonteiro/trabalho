@@ -20,15 +20,15 @@ const Navbar = () => {
                 <nav>
                     {auth.token && (
                         <ul>
-                            <li><Link to='/login' onClick={auth.logout}>Sair</Link></li>
                         <li><Link to='/Matricula'>Matricula</Link></li>
+                        <li><Link to='/login' onClick={auth.logout}>Sair</Link></li>
                         </ul>
 
                     )}
                     {!auth.token && (
                         <ul>
                         <li><Link to='/login'>Login</Link></li>
-                        <li><Link to='/Matricula'>Matricula</Link></li>
+                        <li><Link to='/Matricula'>Matricular-se</Link></li>
                     </ul>
                     )}
                 </nav>
