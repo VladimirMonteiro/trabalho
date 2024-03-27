@@ -1,19 +1,14 @@
-import { authContext } from "../../context/authProvider/AuthContext"
-import { useContext } from "react"
+import { authContext } from "../../context/authProvider/AuthContext";
+import { useContext } from "react";
 
+const Protected = ({ children }) => {
+    const auth = useContext(authContext);
 
-const Protected = () => {
-
-    const auth = useContext(authContext)
-
-    if(!auth.token){
-        return <h1>Acesso Negado</h1>
-
+    if (!auth.token) {
+        return <h1>Acesso Negado</h1>;
+    } else {
+        return <>{children}</>;
     }
-    else{
-        return null
-    }
+};
 
-    
-}
-export default Protected
+export default Protected;

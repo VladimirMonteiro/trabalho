@@ -9,6 +9,7 @@ import Home from './pages/home/Home'
 import Login from './pages/login/Login'
 import Admin from './pages/admin/Admin'
 import Matricula from './pages/matricula/Matricula'
+import Disciplina from './pages/disciplina/Disciplina'
 
 
 //Components
@@ -33,6 +34,7 @@ function App() {
           <Route path='/login' element= {<Login/>}/>
           <Route path='/admin' element = {<Protected><Admin/></Protected>}/>
           <Route path='/matricula' element = {<Matricula/>}/>
+          <Route path='/disciplina' element = {<Disciplina/>}/>
             </Routes>
             <Footer/>
         </Router>

@@ -30,6 +30,7 @@ export async function loginRequest({ email, password }) {
     try {
 
         const request = await api.post("/student/login", { email, password })
+        
         return request.data
 
     } catch (error) {

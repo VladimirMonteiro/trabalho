@@ -7,6 +7,8 @@ const Navbar = () => {
 
     const auth  = useContext(authContext)
 
+
+
     
 
 
@@ -18,11 +20,21 @@ const Navbar = () => {
                     <h1 className={styles.title}><Link to='/'>Under Mind</Link></h1>
                 </div>
                 <nav>
-                    {auth.token && (
+
+                
+                    {auth.token && auth.isStudent !== false &&(
                         <ul>
-                        <li><Link to='/Matricula'>Matricula</Link></li>
+                        <li><Link to='/admin'>Aluno</Link></li>
+                        <li><Link to='/disciplina'>Matricula</Link></li>
                         <li><Link to='/login' onClick={auth.logout}>Sair</Link></li>
                         </ul>
+
+                    )}
+                    {auth.token && auth.isStudent === false && (
+                          <ul>
+                          <li><Link to='/Matricula'>Criar turmar</Link></li>
+                          <li><Link to='/login' onClick={auth.logout}>Sair</Link></li>
+                          </ul>
 
                     )}
                     {!auth.token && (

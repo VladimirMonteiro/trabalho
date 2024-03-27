@@ -33,19 +33,15 @@ function AuthProvider({ children }) {
             return response
         }
         else {
-            const payload = { token: response.token, student: response.studentId }
+            console.log(response)
+            const payload = { token: response.token, student: response.student._id, isStudent: response.student.isStudent, course: response.student.course, disciplines: response.student.disciplines }
 
-
+            console.log(payload)
             setStudent(payload)
             setStudentLocalStorage(payload)
 
         }
 
-        const payload = { token: response.token, student: response.studentId }
-
-
-        setStudent(payload)
-        setStudentLocalStorage(payload)
     }
 
     async function logout() {
