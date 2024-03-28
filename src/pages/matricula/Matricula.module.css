@@ -15,18 +15,18 @@
     text-shadow: #000000 1px 1px 1px;
     color: #ffffff;
 }
-#matriculaForm{
+.matriculaForm{
     background-color: rgb(255, 255, 255);
     padding: 30px;
     border-radius: 6px;
 }
-.form-group{
+.formGroup{
     margin-top: 10px;
     margin-bottom: 5px;
     color: #26348C;
 }
 
-.form-group input{
+.formGroup input{
     margin-top: 5px;
     width: 100%;
     height: 26px;
@@ -34,7 +34,7 @@
     padding: 5px;
     border: 1px solid;
 }
-.form-group select{
+.formGroup select{
     margin-top: 5px;
     width: 100%;
     padding: 5px;
@@ -44,7 +44,7 @@
     margin-right: 10px;
     font-family:'Arial';
 }
-.form-group input[type= "submit"]{
+.formGroup input[type= "submit"]{
     background-color: #26348C;
     color: white;
     border: none;
@@ -56,7 +56,7 @@
     font-size: large;
     font-weight: bold;
 }
-.form-group input[type= "submit"]:hover{
+.formGroup input[type= "submit"]:hover{
     background-color: #404c9f;
     color: white;
 }

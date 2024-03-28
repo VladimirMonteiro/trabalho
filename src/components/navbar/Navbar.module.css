@@ -5,6 +5,10 @@
     color: white;
 }
 
+.title{
+    margin: 1px;
+}
+
 .title a{
     text-decoration: none;
     color: white;
@@ -17,6 +21,7 @@
     justify-content: space-between;
     height: 65px;
     align-items: center;
+    padding: 0 2%;
 }
 
 .headerContainer ul {
@@ -27,6 +32,7 @@
 
 .headerContainer ul li{
     margin-right: 15px;
+    margin-top: 10px;
     font-weight: bold;
     font-size: 19px;
   
