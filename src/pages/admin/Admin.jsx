@@ -1,6 +1,6 @@
 import styles from './Admin.module.css';
 import { authContext } from '../../context/authProvider/AuthContext';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Button from '../../components/matricula/Button';
 import api from '../../utils/api';
 import Message from '../../components/message/Message';
@@ -9,7 +9,7 @@ const Admin = () => {
 
 
 
-
+    const [responseApi, setResponseApi] = useState({})
     const [turma, setTurma] = useState({});
 
     const [course, setCourse] = useState({})
@@ -28,6 +28,23 @@ const Admin = () => {
         { value: "Criar Curso", label: "Criar Curso" },
         // Adicione mais opções conforme necessário
     ];
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get('/course/getAll');
+                console.log(response.data);
+                setResponseApi(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
 
     const handleOptionClick = (option) => {
         setSelectedOption(option);
@@ -64,11 +81,11 @@ const Admin = () => {
                 setMessage("")
             }, 3000)
         }).catch(error => console.log(error))
-       
+
         console.log(turma);
     };
 
-    const handleSubmitCourse = async(e) => {
+    const handleSubmitCourse = async (e) => {
         e.preventDefault()
 
         const newcourse = {
@@ -82,17 +99,21 @@ const Admin = () => {
             setDisciplinesList([])
             setName("")
             setMessage(response.data.message)
-            
-            setTimeout(()=> {
+
+            setTimeout(() => {
                 setMessage("")
 
             }, 3000)
         }).catch(error => console.log(error))
 
-       
+
 
         console.log(newcourse)
     }
+
+    console.log(responseApi.turmas)
+
+
 
     return (
         <section className={styles.container}>
@@ -143,9 +164,9 @@ const Admin = () => {
 
                 {/*Se o usuário não for um aluno renderiza este componente*/}
                 {auth.isStudent == "" && (
-                    
+
                     <>
-                    {message && (<Message message={message}/>)}
+                        {message && (<Message message={message} />)}
                         <ul className={styles.list}>
                             {options.map((option, index) => (
                                 <li
@@ -160,16 +181,30 @@ const Admin = () => {
                         <div>
                             {selectedOption === "Criar Turma" && (
                                 <>
-                               
+
                                     <form className={styles.formContainer} onSubmit={handleSubmit}>
                                         <div>
                                             <label htmlFor="teacher">Professor: </label>
-                                            <input type="text" name="teacher" id="teacher" onChange={handleOnchange}  value={turma.teacher || ""}/>
+                                            <input type="text" name="teacher" id="teacher" placeholder='nome' onChange={handleOnchange} value={turma.teacher || ""} />
+                                        </div>
+                                        <select className='form-control' id='course' placeholder='Curso:' name="course" onChange={handleOnchange} >
+                                            <option value=''>Selecione seu curso</option>
+                                            {responseApi.courses && responseApi.courses.map((course) => (
+                                                <option key={course._id} value={course.name}>{course.name}</option>
+                                            ))}
+                                        </select>
+                                        <div className={styles.formGroup}>
+
+
                                         </div>
                                         <div className={styles.formGroup}>
-                                            <select className='form-control' id='course' placeholder='Curso:' name="course" onChange={handleOnchange} >
-                                                <option value=''>Selecione seu curso</option>
-                                                <option id="course" value='Analise e desenvolvimento de sistemas'>Analise e desenvolvimento de sistemas</option>
+                                            <select className='form-control' id='discipline' placeholder='Disciplina:' name="discipline" onChange={handleOnchange}>
+                                                <option value=''>Selecione a disciplina</option>
+                                                {responseApi.courses && responseApi.courses.map((course) => (
+                                                    course.disciplines.map((discipline,index) => (
+                                                        <option key={index} value={discipline}>{discipline}</option>
+                                                    ))
+                                                ))}
                                             </select>
                                         </div>
                                         <div>
@@ -183,15 +218,15 @@ const Admin = () => {
                                         <div className={styles.tree}>
                                             <div>
                                                 <label htmlFor="vagas">Informe o número de vagas: </label>
-                                                <input type="number" name="vagas" id="vagas" onChange={handleOnchange}  value={turma.vagas}/>
+                                                <input type="number" name="vagas" id="vagas" placeholder='ex:10' onChange={handleOnchange} value={turma.vagas} />
                                             </div>
                                             <div>
                                                 <label htmlFor="horario">Horário: </label>
-                                                <input type="number" name="horario" id="horario" onChange={handleOnchange} value={turma.horario || ""} />
+                                                <input type="string" name="horario" id="horario" placeholder='ex:19h' onChange={handleOnchange} value={turma.horario || ""} />
                                             </div>
                                             <div>
                                                 <label htmlFor="dia">Dia da semana: </label>
-                                                <input type="text" name="dia" id="dia" onChange={handleOnchange} value={turma.dia || ""}/>
+                                                <input type="text" name="dia" id="dia" onChange={handleOnchange} placeholder='ex: Quinta-feira' value={turma.dia || ""} />
                                             </div>
                                         </div>
                                         <div className={styles.teste}>
