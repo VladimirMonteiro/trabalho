@@ -2,6 +2,8 @@ import styles from './Admin.module.css';
 import { authContext } from '../../context/authProvider/AuthContext';
 import { useContext, useState } from 'react';
 import Button from '../../components/matricula/Button';
+import api from '../../utils/api';
+import Message from '../../components/message/Message';
 
 const Admin = () => {
 
@@ -9,6 +11,10 @@ const Admin = () => {
 
 
     const [turma, setTurma] = useState({});
+
+    const [course, setCourse] = useState({})
+    const [name, setName] = useState("")
+    const [message, setMessage] = useState("")
 
     const [disipline, setDiscipline] = useState("");
     const [disiplinesList, setDisciplinesList] = useState([]);
@@ -49,8 +55,39 @@ const Admin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const data = await api.post('/student/createTurma', turma).then((response) => {
+            setTurma({})
+            setMessage(response.data.message)
+        }).catch(error => console.log(error))
+       
         console.log(turma);
     };
+
+    const handleSubmitCourse = async(e) => {
+        e.preventDefault()
+
+        const newcourse = {
+            name,
+            disciplines: disiplinesList
+        }
+
+        setCourse(newcourse)
+
+        const data = await api.post('/course/create', newcourse).then((response) => {
+            setDisciplinesList([])
+            setMessage(response.data.message)
+            
+            setTimeout(()=> {
+                setMessage("")
+
+            }, 3000)
+        }).catch(error => console.log(error))
+
+       
+
+        console.log(newcourse)
+    }
 
     return (
         <section className={styles.container}>
@@ -101,7 +138,9 @@ const Admin = () => {
 
                 {/*Se o usuário não for um aluno renderiza este componente*/}
                 {auth.isStudent == "" && (
+                    
                     <>
+                    {message && (<Message message={message}/>)}
                         <ul className={styles.list}>
                             {options.map((option, index) => (
                                 <li
@@ -116,6 +155,7 @@ const Admin = () => {
                         <div>
                             {selectedOption === "Criar Turma" && (
                                 <>
+                                {message && (<Message message={message}/>)}
                                     <form className={styles.formContainer} onSubmit={handleSubmit}>
                                         <div>
                                             <label htmlFor="teacher">Professor: </label>
@@ -157,17 +197,17 @@ const Admin = () => {
                             )}
                             {selectedOption === "Criar Curso" && (
                                 <>
-                                    <form className={styles.formContainer} onSubmit={handleSubmit}>
+                                    <form className={styles.formContainer} onSubmit={handleSubmitCourse}>
                                         <div className={styles.containerCreateCourse}>
                                             <div>
                                                 <label htmlFor="name">Nome do curso: </label>
-                                                <input type="text" name="name" id="name" onChange={handleOnchange} />
+                                                <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} />
                                             </div>
                                             <div>
                                                 <label htmlFor="discipline">Insira uma disciplina: </label>
-                                                <input type="text" name="discipline" id="discipline" onChange={(e) => setDiscipline(e.target.value)} value={disipline || ""} />
+                                                <input type="text" name="disciplines" id="disciplines" onChange={(e) => setDiscipline(e.target.value)} value={disipline || ""} />
                                             </div>
-                                            <button className={styles.btn} onClick={handleAddedDisciplines}>Adicionar Disciplina</button>
+                                            <div className={styles.btn} onClick={handleAddedDisciplines}>Adicionar Disciplina</div>
                                         </div>
                                         <div className={styles.tableContainer}>
                                             {disiplinesList.length !== 0 && (
