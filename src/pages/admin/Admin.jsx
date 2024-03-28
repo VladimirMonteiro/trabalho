@@ -59,6 +59,10 @@ const Admin = () => {
         const data = await api.post('/student/createTurma', turma).then((response) => {
             setTurma({})
             setMessage(response.data.message)
+
+            setTimeout(() => {
+                setMessage("")
+            }, 3000)
         }).catch(error => console.log(error))
        
         console.log(turma);
@@ -76,6 +80,7 @@ const Admin = () => {
 
         const data = await api.post('/course/create', newcourse).then((response) => {
             setDisciplinesList([])
+            setName("")
             setMessage(response.data.message)
             
             setTimeout(()=> {
@@ -155,14 +160,14 @@ const Admin = () => {
                         <div>
                             {selectedOption === "Criar Turma" && (
                                 <>
-                                {message && (<Message message={message}/>)}
+                               
                                     <form className={styles.formContainer} onSubmit={handleSubmit}>
                                         <div>
                                             <label htmlFor="teacher">Professor: </label>
-                                            <input type="text" name="teacher" id="teacher" onChange={handleOnchange} />
+                                            <input type="text" name="teacher" id="teacher" onChange={handleOnchange}  value={turma.teacher || ""}/>
                                         </div>
                                         <div className={styles.formGroup}>
-                                            <select className='form-control' id='course' placeholder='Curso:' name="course" onChange={handleOnchange}>
+                                            <select className='form-control' id='course' placeholder='Curso:' name="course" onChange={handleOnchange} >
                                                 <option value=''>Selecione seu curso</option>
                                                 <option id="course" value='Analise e desenvolvimento de sistemas'>Analise e desenvolvimento de sistemas</option>
                                             </select>
@@ -178,15 +183,15 @@ const Admin = () => {
                                         <div className={styles.tree}>
                                             <div>
                                                 <label htmlFor="vagas">Informe o número de vagas: </label>
-                                                <input type="number" name="vagas" id="vagas" onChange={handleOnchange} />
+                                                <input type="number" name="vagas" id="vagas" onChange={handleOnchange}  value={turma.vagas}/>
                                             </div>
                                             <div>
                                                 <label htmlFor="horario">Horário: </label>
-                                                <input type="number" name="horario" id="horario" onChange={handleOnchange} />
+                                                <input type="number" name="horario" id="horario" onChange={handleOnchange} value={turma.horario || ""} />
                                             </div>
                                             <div>
                                                 <label htmlFor="dia">Dia da semana: </label>
-                                                <input type="text" name="dia" id="dia" onChange={handleOnchange} />
+                                                <input type="text" name="dia" id="dia" onChange={handleOnchange} value={turma.dia || ""}/>
                                             </div>
                                         </div>
                                         <div className={styles.teste}>
@@ -201,7 +206,7 @@ const Admin = () => {
                                         <div className={styles.containerCreateCourse}>
                                             <div>
                                                 <label htmlFor="name">Nome do curso: </label>
-                                                <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} />
+                                                <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name || ""} />
                                             </div>
                                             <div>
                                                 <label htmlFor="discipline">Insira uma disciplina: </label>
