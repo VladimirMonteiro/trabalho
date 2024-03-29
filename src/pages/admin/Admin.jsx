@@ -187,7 +187,7 @@ const Admin = () => {
                                             <label htmlFor="teacher">Professor: </label>
                                             <input type="text" name="teacher" id="teacher" placeholder='nome' onChange={handleOnchange} value={turma.teacher || ""} />
                                         </div>
-                                        <select className='form-control' id='course' placeholder='Curso:' name="course" onChange={handleOnchange} >
+                                        <select className='form-control' id='course' placeholder='Curso:' name="course" onChange={handleOnchange} value={turma.course || ""} >
                                             <option value=''>Selecione seu curso</option>
                                             {responseApi.courses && responseApi.courses.map((course) => (
                                                 <option key={course._id} value={course.name}>{course.name}</option>
@@ -198,7 +198,7 @@ const Admin = () => {
 
                                         </div>
                                         <div className={styles.formGroup}>
-                                            <select className='form-control' id='discipline' placeholder='Disciplina:' name="discipline" onChange={handleOnchange}>
+                                            <select className='form-control' id='discipline' placeholder='Disciplina:' name="discipline" onChange={handleOnchange} value={turma.discipline || ""}>
                                                 <option value=''>Selecione a disciplina</option>
                                                 {responseApi.courses && responseApi.courses.map((course) => (
                                                     course.disciplines.map((discipline,index) => (
@@ -208,7 +208,7 @@ const Admin = () => {
                                             </select>
                                         </div>
                                         <div>
-                                            <select className='form-control' id='turno' placeholder='Turno:' name="turno" onChange={handleOnchange}>
+                                            <select className='form-control' id='turno' placeholder='Turno:' name="turno" value={turma.turno || ""} onChange={handleOnchange}>
                                                 <option value=''>Selecione o turno</option>
                                                 <option id="course" value='manha'>Manhã</option>
                                                 <option id="course" value='tarde'>Tarde</option>
@@ -216,15 +216,15 @@ const Admin = () => {
                                             </select>
                                         </div>
                                         <div className={styles.tree}>
-                                            <div>
+                                            <div className={styles.dat}>
                                                 <label htmlFor="vagas">Informe o número de vagas: </label>
-                                                <input type="number" name="vagas" id="vagas" placeholder='ex:10' onChange={handleOnchange} value={turma.vagas} />
+                                                <input type="number" name="vagas" id="vagas" placeholder='ex:10' onChange={handleOnchange} value={turma.vagas || ""} />
                                             </div>
-                                            <div>
+                                            <div className={styles.dat}>
                                                 <label htmlFor="horario">Horário: </label>
                                                 <input type="string" name="horario" id="horario" placeholder='ex:19h' onChange={handleOnchange} value={turma.horario || ""} />
                                             </div>
-                                            <div>
+                                            <div className={styles.dat}>
                                                 <label htmlFor="dia">Dia da semana: </label>
                                                 <input type="text" name="dia" id="dia" onChange={handleOnchange} placeholder='ex: Quinta-feira' value={turma.dia || ""} />
                                             </div>

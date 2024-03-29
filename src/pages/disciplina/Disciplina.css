@@ -50,6 +50,16 @@ tbody tr:hover {
     background-color: #26348C;
     border-color: #26348C
 }
+.btn-secondary{
+    height: 40px;
+    border-radius: 5px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    
+}
 
 .btn-primary:hover {
     background-color: #3b4dc1;;

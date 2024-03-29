@@ -4,8 +4,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 65px);
+    min-height: 690px;
     gap: 20px;
+
     background-image: url('../../assets/bkgmatricula.jpg');
     background-size: cover;
     color: white;
@@ -14,10 +15,12 @@
 .Matricula h2{
     text-shadow: #000000 1px 1px 1px;
     color: #ffffff;
+    margin: 20px;
 }
 .matriculaForm{
     background-color: rgb(255, 255, 255);
-    padding: 30px;
+    min-width: 30%;
+    padding: 18px;
     border-radius: 6px;
 }
 .formGroup{
