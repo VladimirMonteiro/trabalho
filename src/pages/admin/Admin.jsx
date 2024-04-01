@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import Button from '../../components/matricula/Button';
 import api from '../../utils/api';
 import Message from '../../components/message/Message';
+import Loading from '../../components/loading/Loading'
 
 const Admin = () => {
 
@@ -15,11 +16,13 @@ const Admin = () => {
     const [course, setCourse] = useState({})
     const [name, setName] = useState("")
     const [message, setMessage] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [disipline, setDiscipline] = useState("");
     const [disiplinesList, setDisciplinesList] = useState([]);
+    
 
-    const [selectedOption, setSelectedOption] = useState("Criar Turma");
+    const [selectedOption, setSelectedOption] = useState("");
 
     const auth = useContext(authContext);
 
@@ -29,6 +32,7 @@ const Admin = () => {
         // Adicione mais opções conforme necessário
     ];
 
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -124,39 +128,55 @@ const Admin = () => {
                 {/* Se o usúario for um aluno então renderiza tal componente */}
                 {auth.isStudent !== false && (
                     <>
-                        <ul className={styles.list}>
-                            <li>Todas disciplinas</li>
-                            <li>em andamento</li>
-                            <li>Concluido</li>
-                        </ul>
-                        <div>
-                            <details className={styles.details}>
-                                <summary className=''>1 - Semestre</summary>
-                                <ul>
-                                    <li>Banco de dados</li>
-                                    <li>Banco de dados</li>
-                                    <li>Banco de dados</li>
-                                    <li>Banco de dados</li>
-                                    <li>Banco de dados</li>
-                                </ul>
-                            </details>
-                            <details>
-                                <summary>2 - Semestre</summary>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                            </details>
-                            <details>
-                                <summary>3- Semestre</summary>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                                <li>Banco de dados</li>
-                            </details>
-                        </div>
+                     
+
+             
+                             <div className="container">
+                             {message && <Message message={message}/>}
+                             <h1>Lista de disciplinas</h1>
+                             {loading && (<Loading/>)}
+                             {!loading && (
+                               <div className="table-responsive">
+                                 <table className="table">
+                                   <thead>
+                                     <tr>
+                                       <th>ID</th>
+                                       <th>Disciplina</th>
+                                       <th>Professor</th>
+                                      
+                                     </tr>
+                                   </thead>
+                                   <tbody>
+                                     {auth.disciplines.map((discipline, index) => (
+                                       <tr key={index}>
+                                         <td>{index + 1}</td>
+                                         <td>{discipline}</td>
+                                         <td>{responseApi.turmas.map((turma, index) => (
+                                            <>
+                                            {turma.discipline === discipline && (
+                                               <span>{turma}</span>
+                                            )}
+                                            
+                                            
+                                            
+                                            </>
+                                            
+
+                                            
+                                            
+                                         ))}</td>
+                                         
+                                       </tr>
+                                     ))}
+                                   </tbody>
+                                 </table>
+                               </div>
+                             )}
+                           </div>
+                        
+
+
+                      
                     </>
                 )}
 
