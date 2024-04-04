@@ -4,51 +4,44 @@ import { useContext, useState, useEffect } from 'react';
 import Button from '../../components/matricula/Button';
 import api from '../../utils/api';
 import Message from '../../components/message/Message';
-import Loading from '../../components/loading/Loading'
+import Loading from '../../components/loading/Loading';
 
 const Admin = () => {
-
-
-
-    const [responseApi, setResponseApi] = useState({})
+    const [responseApi, setResponseApi] = useState({});
     const [turma, setTurma] = useState({});
-
-    const [course, setCourse] = useState({})
-    const [name, setName] = useState("")
-    const [message, setMessage] = useState("")
-    const [loading, setLoading] = useState(false)
-
+    const [course, setCourse] = useState({});
+    const [name, setName] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(true);
     const [disipline, setDiscipline] = useState("");
     const [disiplinesList, setDisciplinesList] = useState([]);
-    
-
     const [selectedOption, setSelectedOption] = useState("");
-
+    const [studentDisciplines, setStudentDisciplines] = useState([]); // Alterado para inicializar como um array vazio
     const auth = useContext(authContext);
 
     const options = [
         { value: "Criar Turma", label: "Criar Turma" },
         { value: "Criar Curso", label: "Criar Curso" },
-        // Adicione mais opções conforme necessário
+        // Add more options as needed
     ];
-
-    
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await api.get('/course/getAll');
                 console.log(response.data);
-                setResponseApi(response.data)
+                setResponseApi(response.data);
+                const disciplines = response.data.turmas.filter((turma) => turma.course == auth.course)
+                console.log(disciplines)
+                const disciplineNames = disciplines.map(turma => turma.discipline); // Extrai apenas os nomes das disciplinas para um array
+                setStudentDisciplines(disciplineNames); // Atribui o array de nomes de disciplinas para studentDisciplines
+                setLoading(false)
             } catch (error) {
                 console.log(error);
             }
         };
-
         fetchData();
     }, []);
-
-
 
     const handleOptionClick = (option) => {
         setSelectedOption(option);
@@ -60,17 +53,16 @@ const Admin = () => {
 
     const handleAddedDisciplines = () => {
         if (!disipline.trim()) {
-            // Se o campo de disciplina estiver vazio ou contiver apenas espaços em branco
             alert("O campo de disciplina não pode estar vazio.");
             return;
         }
-        setDisciplinesList([...disiplinesList, disipline]); // Adicionando a nova disciplina à lista existente
-        setDiscipline(""); // Limpar o campo de entrada após adicionar a disciplina
+        setDisciplinesList([...disiplinesList, disipline]);
+        setDiscipline("");
     };
 
     const handleRemoveDiscipline = (index) => {
         const updatedDisciplines = [...disiplinesList];
-        updatedDisciplines.splice(index, 1); // Remover a disciplina do índice especificado
+        updatedDisciplines.splice(index, 1);
         setDisciplinesList(updatedDisciplines);
     };
 
@@ -78,113 +70,83 @@ const Admin = () => {
         e.preventDefault();
 
         const data = await api.post('/student/createTurma', turma).then((response) => {
-            setTurma({})
-            setMessage(response.data.message)
-
+            setTurma({});
+            setMessage(response.data.message);
             setTimeout(() => {
-                setMessage("")
-            }, 3000)
-        }).catch(error => console.log(error))
+                setMessage("");
+            }, 3000);
+        }).catch(error => console.log(error));
 
         console.log(turma);
     };
 
     const handleSubmitCourse = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const newcourse = {
             name,
             disciplines: disiplinesList
-        }
+        };
 
-        setCourse(newcourse)
+        setCourse(newcourse);
 
         const data = await api.post('/course/create', newcourse).then((response) => {
-            setDisciplinesList([])
-            setName("")
-            setMessage(response.data.message)
-
+            setDisciplinesList([]);
+            setName("");
+            setMessage(response.data.message);
             setTimeout(() => {
-                setMessage("")
+                setMessage("");
+            }, 3000);
+        }).catch(error => console.log(error));
 
-            }, 3000)
-        }).catch(error => console.log(error))
+        console.log(newcourse);
+    };
 
-
-
-        console.log(newcourse)
-    }
-
-    console.log(responseApi.turmas)
-
-
+    console.log(responseApi);
 
     return (
         <section className={styles.container}>
             <h1>{auth.course}</h1>
             <div className={styles.center}>
-
-
-                {/* Se o usúario for um aluno então renderiza tal componente */}
                 {auth.isStudent !== false && (
                     <>
-                     
+                        <div className="container">
+                            {message && <Message message={message} />}
+                            <h1>Lista de disciplinas</h1>
+                            {loading && responseApi && (<Loading />)}
+                            {!loading && (
+                                <div className="table-responsive">
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Disciplina</th>
+                                                <th>Professor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {responseApi.turmas && studentDisciplines.map((discipline, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{discipline}</td>
+                                                    <td>
+                                                        {responseApi.turmas && responseApi.turmas.map((turma, turmaIndex) => (
+                                                            turma.discipline === discipline && (
+                                                                <span key={`${index}_${turmaIndex}`}>{turma.teacher}</span>
+                                                            )
+                                                        ))}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
 
-             
-                             <div className="container">
-                             {message && <Message message={message}/>}
-                             <h1>Lista de disciplinas</h1>
-                             {loading && (<Loading/>)}
-                             {!loading && (
-                               <div className="table-responsive">
-                                 <table className="table">
-                                   <thead>
-                                     <tr>
-                                       <th>ID</th>
-                                       <th>Disciplina</th>
-                                       <th>Professor</th>
-                                      
-                                     </tr>
-                                   </thead>
-                                   <tbody>
-                                     {auth.disciplines.map((discipline, index) => (
-                                       <tr key={index}>
-                                         <td>{index + 1}</td>
-                                         <td>{discipline}</td>
-                                         <td>{responseApi.turmas.map((turma, index) => (
-                                            <>
-                                            {turma.discipline === discipline && (
-                                               <span>{turma}</span>
-                                            )}
-                                            
-                                            
-                                            
-                                            </>
-                                            
-
-                                            
-                                            
-                                         ))}</td>
-                                         
-                                       </tr>
-                                     ))}
-                                   </tbody>
-                                 </table>
-                               </div>
-                             )}
-                           </div>
-                        
-
-
-                      
+                                    </table>
+                                </div>
+                            )}
+                        </div>
                     </>
                 )}
-
-
-
-                {/*Se o usuário não for um aluno renderiza este componente*/}
                 {auth.isStudent == "" && (
-
                     <>
                         {message && (<Message message={message} />)}
                         <ul className={styles.list}>
@@ -201,7 +163,6 @@ const Admin = () => {
                         <div>
                             {selectedOption === "Criar Turma" && (
                                 <>
-
                                     <form className={styles.formContainer} onSubmit={handleSubmit}>
                                         <div>
                                             <label htmlFor="teacher">Professor: </label>
@@ -213,15 +174,12 @@ const Admin = () => {
                                                 <option key={course._id} value={course.name}>{course.name}</option>
                                             ))}
                                         </select>
-                                        <div className={styles.formGroup}>
-
-
-                                        </div>
+                                        <div className={styles.formGroup}></div>
                                         <div className={styles.formGroup}>
                                             <select className='form-control' id='discipline' placeholder='Disciplina:' name="discipline" onChange={handleOnchange} value={turma.discipline || ""}>
                                                 <option value=''>Selecione a disciplina</option>
                                                 {responseApi.courses && responseApi.courses.map((course) => (
-                                                    course.disciplines.map((discipline,index) => (
+                                                    course.disciplines.map((discipline, index) => (
                                                         <option key={index} value={discipline}>{discipline}</option>
                                                     ))
                                                 ))}
@@ -280,18 +238,16 @@ const Admin = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-
                                                             {disiplinesList.map((discipline, index) => (
                                                                 <tr key={index}>
                                                                     <td>{discipline}</td>
-                                                                    <td><button className={styles.btnRemove} onClick={handleRemoveDiscipline}>Remover</button></td>
+                                                                    <td><button className={styles.btnRemove} onClick={() => handleRemoveDiscipline(index)}>Remover</button></td>
                                                                 </tr>
                                                             ))}
                                                         </tbody>
                                                     </table>
                                                 </>
                                             )}
-
                                         </div>
                                         <div className={styles.teste}>
                                             <Button type='submit' text='Criar Curso' />
@@ -302,7 +258,6 @@ const Admin = () => {
                         </div>
                     </>
                 )}
-
             </div>
         </section>
     );
