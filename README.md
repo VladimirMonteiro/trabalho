@@ -1,8 +1,27 @@
-# React + Vite
+Sistema de matricula
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O sistema desenvolvido foi criado com intuito de resolver o seguinte problema: Alunos realizarem suas matriculas em cursos e disciplinas e usuários da instituição realizarem cadastros de cursos e turmas.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+versão node: 20.11.0
+versão npm: 10.2.4
+
+
+
+
+Para iniciar o projeto basta clonar o codigo no github e digitar o seguinte comando:
+
+1 - npm install
+2 - npm run run dev
+
+
+Desenvolvedores envolvidos:
+
+1 - Vladimir Monteiro Souza de Lima
+2 - Maria eduarda Bergmann
+3 - Veridiana Pradella Ritter
+4 - Daivisson Gustavo Bezerra da Cunha
+5 - Lucasm Mateus Monteiro Teixeira
+
+
+
