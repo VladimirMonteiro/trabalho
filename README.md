@@ -15,6 +15,9 @@ Para iniciar o projeto basta clonar o codigo no github e digitar o seguinte coma
 2 - npm run run dev
 
 
+Link para o projeto: https://trabalho-xi-eight.vercel.app/
+
+
 Desenvolvedores envolvidos:
 
 1 - Vladimir Monteiro Souza de Lima
