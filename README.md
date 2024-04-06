@@ -17,6 +17,10 @@ Para iniciar o projeto basta clonar o codigo no github e digitar o seguinte coma
 
 Link para o projeto: https://trabalho-xi-eight.vercel.app/
 
+acesso da instituição:
+e-mail: prof123@gmail.com
+senha: 123
+
 
 Desenvolvedores envolvidos:
 
