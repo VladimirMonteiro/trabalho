@@ -28,7 +28,7 @@ Desenvolvedores envolvidos:
 2 - Maria eduarda Bergmann
 3 - Veridiana Pradella Ritter
 4 - Daivisson Gustavo Bezerra da Cunha
-5 - Lucasm Mateus Monteiro Teixeira
+5 - Lucas Mateus Monteiro Teixeira
 
 
 
